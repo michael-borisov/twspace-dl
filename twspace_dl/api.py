@@ -192,7 +192,7 @@ class GraphQLAPI(APIClient):
 
         - return: The details of the queried Twitter Space.
         """
-        query_id = "xVEzTKg_mLTHubK5ayL0HA"
+        query_id = "pCUWlI5FNL7ROBjmBsH3Zw"
         operation_name = "AudioSpaceById"
         variables = {
             "id": space_id,
@@ -211,7 +211,7 @@ class GraphQLAPI(APIClient):
 
         - return: The details of the queried Twitter user.
         """
-        query_id = "oUZZZ8Oddwxs8Cd3iW3UEA"
+        query_id = "ZHSN3WlvahPKVvUxVQbg1A"
         operation_name = "UserByScreenName"
         variables = {"screen_name": screen_name, "withSafetyModeUserFields": True}
         # "features" is copied as-is from real requests
@@ -229,7 +229,7 @@ class GraphQLAPI(APIClient):
 
         - return: The details of the queried Twitter user.
         """
-        query_id = "ZQEuHPrIYlvh1NAyIQHP_w"
+        query_id = "mzoqrVGwk-YTSGME1dRfXQ"
         operation_name = "ProfileSpotlightsQuery"
         variables = {"screen_name": screen_name}
         return self.get(query_id, operation_name, variables)
@@ -265,7 +265,7 @@ class GraphQLAPI(APIClient):
         - raise RuntimeError: If the specified URL is not a valid Twitter user profile URL.
         """
         if match := re.match(
-            r"^(?:https?:\/\/|)twitter\.com\/(?P<screen_name>\w+)$", user_url.strip("/")
+            r"^(?:https?:\/\/|)x\.com\/(?P<screen_name>\w+)$", user_url.strip("/")
         ):
             return self.user_id(match.group("screen_name"))
         raise RuntimeError(f"Invalid Twitter user URL: {user_url}")
