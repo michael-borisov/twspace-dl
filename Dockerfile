@@ -1,4 +1,4 @@
-FROM python:3.11-alpine as build
+FROM python:3.13-alpine as build
 
 # RUN mount cache for multi-arch: https://github.com/docker/buildx/issues/549#issuecomment-1788297892
 ARG TARGETARCH
@@ -14,24 +14,24 @@ RUN python3 -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
 # Install poetry
-RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip pip3.11 install poetry
+RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip pip3.13 install poetry
 
 # Install dependencies
 COPY pyproject.toml poetry.lock ./
-RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip poetry export -f requirements.txt | pip3.11 install -r /dev/stdin
+RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip poetry export -f requirements.txt | pip3.13 install -r /dev/stdin
 
 # Build
 COPY . .
-RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip poetry build && pip3.11 install dist/*.whl
+RUN --mount=type=cache,id=pip-$TARGETARCH$TARGETVARIANT,sharing=locked,target=/root/.cache/pip poetry build && pip3.13 install dist/*.whl
 
 # Uninstall them inside venv
-RUN pip3.11 uninstall -y setuptools pip && \
-    pip3.11 uninstall -y setuptools pip
+RUN pip3.13 uninstall -y setuptools pip && \
+    pip3.13 uninstall -y setuptools pip
 
-FROM python:3.11-alpine as final
+FROM python:3.13-alpine as final
 
 # Uninstall them for security purpose
-RUN pip3.11 uninstall -y setuptools pip && \
+RUN pip3.13 uninstall -y setuptools pip && \
     rm -rf /root/.cache/pip
 
 # Copy venv
@@ -42,7 +42,7 @@ ENV PATH="/venv/bin:$PATH"
 RUN apk add --no-cache dumb-init
 
 # ffmpeg
-COPY --link --from=mwader/static-ffmpeg:6.0 /ffmpeg /usr/local/bin/
+COPY --link --from=mwader/static-ffmpeg:8.0 /ffmpeg /usr/local/bin/
 
 # Create output directory
 RUN mkdir -p /output && chown 1001:1001 /output

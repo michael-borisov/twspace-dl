@@ -1,82 +1,28 @@
 <!-- markdownlint-disable MD033 MD041 -->
 
 <div align="center">
-  <h1 id="twspace-dl">Twspace-dl</h1>
-  <p>
-    <a href="https://pypi.org/project/twspace-dl/">
-      <img src="https://img.shields.io/pypi/v/twspace-dl?style=for-the-badge" alt="PyPI">
-    </a>
-    <a href="https://pypi.org/project/twspace-dl/">
-      <img src="https://img.shields.io/pypi/dm/twspace-dl?label=DOWNLOADS%20%28PYPI%29&amp;style=for-the-badge" alt="PyPI DLs">
-    </a>
-    <a href="https://github.com/HoloArchivists/twspace-dl/releases">
-      <img src="https://img.shields.io/github/downloads/HoloArchivists/twspace-dl/total?label=DOWNLOADS%20%28GITHUB%29&amp;style=for-the-badge" alt="Github Releases DLs">
-    </a>
-  </p>
-  <p>A python module to download twitter spaces.</p>
+  <h1 id="twspace-dl">Twspace-DL</h1>
+  <p>A python module to download X (Twitter) spaces. Update with November 2025 changes to the API.</p>
 </div>
 
-## History
-[![Star History Chart](https://api.star-history.com/svg?repos=bytebase/star-history&type=Date)](https://star-history.com/#bytebase/star-history&Date)
-
-## Screenshots
-
-<details>
-<summary>GUI</summary>
-
-![general tab](https://user-images.githubusercontent.com/77058942/172580094-3663f86d-3ee2-48d0-9313-f4ed71f048aa.png)
-![input tab](https://user-images.githubusercontent.com/77058942/172580476-bb34dce0-08b0-41f6-852b-b68d32532add.png)
-![running tab](https://user-images.githubusercontent.com/77058942/172580589-fd6b05bd-f081-4c7a-ab05-0640abda00ce.png)
-![success pop up](https://user-images.githubusercontent.com/77058942/172580861-18b3ac9f-88d2-44cf-8b5d-135990a78f77.png)
-
-</details>
-
-<details>
-<summary>CLI</summary>
-
-![help](https://user-images.githubusercontent.com/77058942/172581224-9b465f78-4894-456f-9b85-5b76ee9bbfca.png)
-![running](https://user-images.githubusercontent.com/77058942/172581500-174834c5-6883-44f9-a0a7-610dbb2103e5.png)
-
-</details>
-
+> [!WARNING]
+> There are no plans to update or upload a new PyPi package, as well as portable binaries. Please use this package from sources or in Docker.
 
 ## Requirements
 
-- `ffmpeg` if not using portable binaries.
+- `ffmpeg` installed globally (e.g. `winget install ffmpeg` for Windows).
 - A logged in user's cookies file exported from Twitter in the [Netscape format](https://curl.se/docs/http-cookies.html).
 
 ## Install
 
-### GUI
-
-Use this if you're not sure.
-
-### From portable binaries
-
-[Windows](https://github.com/HoloArchivists/twspace-dl/releases/latest/download/twspace-dl-GUI.exe)
-
-### From source
-
 ```bash
-pip install git+https://github.com/HoloArchivists/twspace-dl@gooey
+pip install git+https://github.com/cjmaxik/twspace-dl@gooey
 ```
 
 ### CLI
 
-### From portable binaries
-
-[Windows](https://github.com/HoloArchivists/twspace-dl/releases/latest/download/twspace-dl-CLI.exe)
-
-### From PyPI
-
 ```bash
-pip install twspace-dl
-```
-
-### From source
-
-```bash
-pip install git+https://github.com/HoloArchivists/twspace-dl
+pip install git+https://github.com/cjmaxik/twspace-dl
 ```
 
 ## Usage
@@ -84,17 +30,6 @@ pip install git+https://github.com/HoloArchivists/twspace-dl
 ```bash
 twspace_dl -i space_url -c COOKIE_FILE
 ```
-
-<details>
-<summary>With binaries</summary>
-
-### Windows
-
-```powershell
-.\twspace_dl.exe -i space_url -c COOKIE_FILE
-```
-
-</details>
 
 ## Features
 
@@ -176,18 +111,18 @@ Example: `[%(creator_screen_name)s]-%(title)s|%(start_date)s`
 
 `Changing ID3 metadata in HLS audio elementary stream is not implemented....`
 
-This is an error in ffmpeg that does not affect twspace_dl at all as far as I know.
+This is a notice in FFmpeg that does not affect twspace_dl at all (as far as I know).
 
 ## Service
 
-To run as a systemd service please refer to https://github.com/HoloArchivists/twspace-dl/blob/main/SERVICE.md
+To run as a systemd service please refer to https://github.com/cjmaxik/twspace-dl/blob/main/SERVICE.md
 
 ## Docker
 
 ### Run once
 
 ```bash
-docker run --rm -v .:/output holoarchivists/twspace-dl -i space_url
+docker run --rm -v .:/output cjmaxik/twspace-dl -i space_url
 ```
 
 ### Run as monitoring service
@@ -196,3 +131,8 @@ docker run --rm -v .:/output holoarchivists/twspace-dl -i space_url
 2. Edit `.env` and fill in the Twitter username you want to monitor.
 3. Put a cookies file into the folder and named it `cookies.txt`.
 4. `docker-compose up -d`
+
+## Screenshots
+
+![help](https://user-images.githubusercontent.com/77058942/172581224-9b465f78-4894-456f-9b85-5b76ee9bbfca.png)
+![running](https://user-images.githubusercontent.com/77058942/172581500-174834c5-6883-44f9-a0a7-610dbb2103e5.png)
